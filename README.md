@@ -1,316 +1,182 @@
-# 🌐 SocialSphere
+# 💬 BolBachchan — Real-Time Chat Application
 
-A modern, lightweight social media platform built for simplicity and real-time engagement.
-
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)
+A full-stack real-time messaging application where users can chat with each other instantly, see who's online, and share images — all with a clean, theme-customizable UI.
 
 ---
 
-## 📌 Table of Contents
+## 🚀 Features
 
-- [Overview](#overview)
-- [Problem Statement](#problem-statement)
-- [Key Features](#key-features)
-- [Tech Stack](#tech-stack)
-- [System Architecture](#system-architecture)
-- [API Overview](#api-overview)
-- [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
-
----
-
-## 🎯 Overview
-
-**SocialSphere** is a mini social media platform designed to be intuitive and user-friendly. It provides users with a simple way to:
-
-- 📝 Share posts with their network
-- ❤️ Like and comment on content
-- 💬 Send direct messages to others
-- 👤 Manage their personal profiles
-- 🔍 Discover content through search and filters
-
-Built with modern web technologies, SocialSphere delivers a smooth, responsive experience for both desktop and mobile users.
-
----
-
-## ⚠️ Problem Statement
-
-Existing social media platforms are often overwhelming with complex features and cluttered interfaces. **SocialSphere** solves this by offering a streamlined alternative that focuses on core social features without unnecessary complexity.
-
----
-
-## ✨ Key Features
-
-### 🔐 Authentication & Authorization
-- User registration and login
-- Secure JWT-based authentication
-- Session management and logout
-- Password protection
-
-### 📝 Post Management
-- Create, edit, and delete posts
-- Global feed with real-time updates
-- Like and unlike posts
-- Add and manage comments
-- Rich text support
-
-### 🔍 Search, Filter & Sort
-- Search posts by keyword
-- Find users by username
-- Filter by tags or categories
-- Sort options:
-  - Newest posts
-  - Most liked
-  - Most commented
-
-### 📑 Pagination
-- Efficient feed pagination (10 posts per page)
-- Smooth scrolling experience
-
-### 💬 Direct Messaging (DM)
-- Private, thread-based conversations
-- Real-time message delivery
-- Message history
-
-### 🗂️ CRUD Operations
-- Full post management capabilities
-- Comment creation and editing
-- User profile management
-
-### 🧭 Navigation
-Key pages include:
-- Home (Feed)
-- Login & Register
-- User Profile
-- Create Post
-- Messaging Center
-
-### 🤖 AI Integration (Optional)
-- AI-generated post captions
-- Intelligent hashtag suggestions
-- Content moderation powered by OpenAI
+- **Real-time messaging** powered by WebSockets (Socket.io) — messages are delivered instantly without page refresh
+- **Online presence indicator** — see which users are currently active
+- **JWT-based Authentication** — secure signup, login, and session management via HTTP-only cookies
+- **Image sharing** — users can send images in chat, uploaded and hosted on Cloudinary
+- **Profile management** — update your display name and profile picture
+- **32 UI themes** — switch between light, dark, and many other themes via DaisyUI
+- **Protected routes** — unauthenticated users are redirected to the login page automatically
+- **Global state management** — lightweight client state handled with Zustand
+- **Full error handling** — meaningful error messages on both client and server
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology | Details |
-|-------|-----------|---------|
-| **Frontend** | React.js | UI library |
-| | React Router | Client-side routing |
-| | Tailwind CSS | Styling & design system |
-| | Axios | HTTP client |
-| **Backend** | Node.js | Runtime environment |
-| | Express.js | Web framework |
-| **Database** | MongoDB Atlas | Cloud database |
-| **Authentication** | JWT | Secure token-based auth |
-| **AI (Optional)** | OpenAI API | Content generation & moderation |
-| **Hosting** | Vercel / Netlify | Frontend deployment |
-| | Render / Railway | Backend deployment |
-| | MongoDB Atlas | Database hosting |
+| Layer      | Technology                                      |
+|------------|-------------------------------------------------|
+| Frontend   | React.js, Vite, TailwindCSS, DaisyUI, Zustand   |
+| Backend    | Node.js, Express.js                             |
+| Database   | MongoDB (Mongoose ODM)                          |
+| Real-time  | Socket.io                                       |
+| Auth       | JSON Web Tokens (JWT), bcryptjs                 |
+| Media      | Cloudinary                                      |
 
 ---
 
-## 🏗️ System Architecture
+## 📁 Project Structure
 
 ```
-┌─────────────────┐
-│   Frontend      │
-│  (React.js)     │
-│  Vercel/Netlify │
-└────────┬────────┘
-         │
-         │ HTTP/REST
-         │
-┌────────▼────────┐
-│   Backend API   │
-│ (Node/Express)  │
-│ Render/Railway  │
-└────────┬────────┘
-         │
-         │ MongoDB
-         │
-┌────────▼────────┐
-│  MongoDB Atlas  │
-│   Database      │
-└─────────────────┘
-```
-
-### Frontend Stack
-- **React.js** - Component-based UI
-- **React Router** - Multi-page navigation
-- **Tailwind CSS** - Utility-first styling
-- **Axios** - API communication
-
-### Backend Stack
-- **Express.js** - REST API server
-- **JWT** - Authentication tokens
-- **REST APIs** - Posts, comments, messages
-
-### Database
-- **MongoDB Atlas** - NoSQL cloud database
-
----
-
-## 📡 API Overview
-
-### Authentication Endpoints
-| Endpoint | Method | Description | Access |
-|----------|--------|-------------|--------|
-| `/api/auth/register` | POST | Register new user | Public |
-| `/api/auth/login` | POST | Login user | Public |
-
-### Post Endpoints
-| Endpoint | Method | Description | Access |
-|----------|--------|-------------|--------|
-| `/api/posts` | GET | Get all posts (with search, filter, sort, pagination) | Public |
-| `/api/posts/:id` | GET | Get single post details | Public |
-| `/api/posts` | POST | Create new post | Authenticated |
-| `/api/posts/:id` | PUT | Update post | Owner only |
-| `/api/posts/:id` | DELETE | Delete post | Owner only |
-| `/api/posts/:id/like` | POST | Like/Unlike post | Authenticated |
-| `/api/posts/:id/comment` | POST | Add comment to post | Authenticated |
-
-### Messaging Endpoints
-| Endpoint | Method | Description | Access |
-|----------|--------|-------------|--------|
-| `/api/messages/:userId` | GET | Fetch messages with user | Authenticated |
-| `/api/messages` | POST | Send new message | Authenticated |
-
-### AI Endpoints (Optional)
-| Endpoint | Method | Description | Access |
-|----------|--------|-------------|--------|
-| `/api/ai/generate` | POST | Generate captions/hashtags | Authenticated |
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v14+)
-- npm or yarn
-- MongoDB Atlas account
-- Git
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Kushal425/SocialSphere.git
-   cd SocialSphere
-   ```
-
-2. **Install frontend dependencies**
-   ```bash
-   cd frontend
-   npm install
-   ```
-
-3. **Install backend dependencies**
-   ```bash
-   cd ../backend
-   npm install
-   ```
-
-4. **Configure environment variables**
-   
-   Create `.env` in the backend directory:
-   ```env
-   PORT=5000
-   MONGODB_URI=your_mongodb_connection_string
-   JWT_SECRET=your_secret_key
-   OPENAI_API_KEY=your_openai_api_key (optional)
-   ```
-
-5. **Start the development servers**
-   
-   Terminal 1 (Backend):
-   ```bash
-   cd backend
-   npm run dev
-   ```
-   
-   Terminal 2 (Frontend):
-   ```bash
-   cd frontend
-   npm run dev
-   ```
-
-6. **Open your browser**
-   ```
-   http://localhost:5173
-   ```
-
----
-
-## 📂 Project Structure
-
-```
-SocialSphere/
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── package.json
-│   └── tailwind.config.js
-│
+BolBachchan/
 ├── backend/
-│   ├── src/
-│   │   ├── controllers/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   ├── middleware/
-│   │   └── index.js
-│   ├── package.json
-│   └── .env
-│
-└── README.md
+│   └── src/
+│       ├── controllers/     # Route handler logic
+│       ├── lib/             # DB, Cloudinary, Socket, JWT utilities
+│       ├── middleware/      # Auth middleware (protectRoute)
+│       ├── models/          # Mongoose schemas (User, Message)
+│       ├── routes/          # API route definitions
+│       ├── seeds/           # Database seeding scripts
+│       └── index.js         # App entry point
+└── frontend/
+    └── src/
+        ├── components/      # Reusable UI components
+        ├── pages/           # Route-level page components
+        ├── store/           # Zustand state stores
+        ├── lib/             # Axios instance, helpers
+        └── constants/       # App-wide constants
 ```
 
 ---
 
-## 🤝 Contributing
+## ⚙️ Setup & Installation
 
-Contributions are welcome! Please follow these steps:
+### 1. Clone the repository
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+```bash
+git clone https://github.com/your-username/bolbachchan.git
+cd bolbachchan
+```
+
+### 2. Configure environment variables
+
+> **Important:** The `.env` file must be created inside the `backend/` folder — **not** in the root of the project.
+
+Create the file at `backend/.env` with the following content:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+PORT=5001
+JWT_SECRET=your_secret_key_here
+
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
+NODE_ENV=development
+```
 
 ---
 
-## 📄 License
+## 🖥️ Running Locally (Development)
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Open **two separate terminals** — one for the backend and one for the frontend.
+
+### Terminal 1 — Backend
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+The backend server will start at **http://localhost:5001**
+
+### Terminal 2 — Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The frontend will start at **http://localhost:5173**
+
+> Make sure the backend is running before opening the frontend.
+
+---
+
+## 🏗️ Production Build
+
+To build and run everything from a single server:
+
+```bash
+# From the project root
+npm run build   # installs deps and builds the frontend
+npm start       # starts the backend which serves the built frontend
+```
+
+App will be available at **http://localhost:5001**
+
+---
+
+## 🔌 API Endpoints
+
+### Auth Routes — `/api/auth`
+| Method | Endpoint          | Description                |
+|--------|-------------------|----------------------------|
+| POST   | `/signup`         | Register a new user        |
+| POST   | `/login`          | Login with credentials     |
+| POST   | `/logout`         | Logout and clear session   |
+| PUT    | `/update-profile` | Update profile picture     |
+| GET    | `/check`          | Verify current auth status |
+
+### Message Routes — `/api/messages`
+| Method | Endpoint       | Description                          |
+|--------|----------------|--------------------------------------|
+| GET    | `/users`       | Get all users (for sidebar)          |
+| GET    | `/:id`         | Get message history with a user      |
+| POST   | `/send/:id`    | Send a message to a user             |
+
+---
+
+## 🗄️ Database Collections
+
+### `users`
+| Field        | Type     | Notes                        |
+|--------------|----------|------------------------------|
+| `email`      | String   | Unique, required             |
+| `fullName`   | String   | Required                     |
+| `password`   | String   | Hashed with bcryptjs         |
+| `profilePic` | String   | Cloudinary URL               |
+| `timestamps` | Auto     | `createdAt`, `updatedAt`     |
+
+### `messages`
+| Field        | Type     | Notes                        |
+|--------------|----------|------------------------------|
+| `senderId`   | ObjectId | Reference to User            |
+| `receiverId` | ObjectId | Reference to User            |
+| `text`       | String   | Message text content         |
+| `image`      | String   | Cloudinary URL (optional)    |
+| `timestamps` | Auto     | `createdAt`, `updatedAt`     |
+
+---
+
+## 🔒 Security Highlights
+
+- Passwords are hashed using **bcryptjs** before storage
+- JWTs are stored in **HTTP-only cookies** to prevent XSS attacks
+- Cookie `sameSite: strict` to mitigate CSRF attacks
+- Secure cookie flag enabled automatically in production
 
 ---
 
 ## 👤 Author
 
 **Kushal Sarkar**
-
-- GitHub: [@Kushal425](https://github.com/Kushal425)
-
----
-
-## 🙏 Acknowledgments
-
-- React.js community
-- Express.js documentation
-- Tailwind CSS framework
-- MongoDB Atlas
-
----
-
-## 📞 Support
-
-For support, email kushalsarkar457@gmail.com or open an issue on GitHub.
-
----
-
-**Made with ❤️ by Kushal Sarkar**
